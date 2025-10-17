@@ -1,1 +1,2 @@
-# mlProjectWebsite
+# run  
+streamlit run index.py
