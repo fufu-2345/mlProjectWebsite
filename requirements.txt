@@ -5,5 +5,4 @@ tensorflow
 numpy
 h5py
 scipy
-os
-base64
+annoy

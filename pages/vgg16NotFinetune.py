@@ -49,6 +49,7 @@ if uploaded_file is not None:
     rank_ID = np.argsort(scores)[::-1]
     rank_score = scores[rank_ID]
     imlist = [imgNames[index].decode('utf-8') for index in rank_ID[0:10]]
+    st.subheader("Top 10 similar images")
     cols = st.columns(5)
     for i, img_name in enumerate(imlist):
         img_path = os.path.join(base_path, img_name)
