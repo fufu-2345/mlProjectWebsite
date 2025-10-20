@@ -33,6 +33,7 @@ stdScaler = joblib.load('scaler/restnet50/stdScaler.pkl')
 mmScaler = joblib.load('scaler/restnet50/minMaxScaler.pkl')
 
 def extract_feature(img_file):
+    img_file.seek(0) 
     img = Image.open(img_file).convert("RGB")
     img = img.resize((224,224))
     x = image.img_to_array(img)
