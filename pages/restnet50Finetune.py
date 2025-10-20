@@ -32,8 +32,9 @@ import joblib
 stdScaler = joblib.load('scaler/restnet50/stdScaler.pkl')
 mmScaler = joblib.load('scaler/restnet50/minMaxScaler.pkl')
 
-def extract_feature(img_path):
-    img = image.load_img(img_path, target_size=(224,224))
+def extract_feature(img_file):
+    img = Image.open(img_file).convert("RGB")
+    img = img.resize((224,224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)
@@ -45,8 +46,8 @@ def extract_feature(img_path):
     features = mmScaler.transform(features)
     return features.flatten()
 
-def find_similar_images(img_path, top_k=10):
-    query_vec = extract_feature(img_path)
+def find_similar_images(img_file, top_k=10):
+    query_vec = extract_feature(img_file)
     idxs, dists = ann_index.get_nns_by_vector(query_vec, top_k, include_distances=True)
     results = [(filenames[i], d) for i, d in zip(idxs, dists)]
     return results
@@ -58,9 +59,7 @@ uploaded_file = st.file_uploader("",type=None, label_visibility="collapsed")
 if uploaded_file is not None:
     query_img = Image.open(uploaded_file)
     st.image(query_img, caption="Your picture", use_container_width=True)
-    temp_path = "temp_query.jpg"
-    query_img.save(temp_path)
-    similar = find_similar_images(temp_path, top_k=10)
+    similar = find_similar_images(uploaded_file, top_k=10)
     st.subheader("Top 10 similar images")
     cols = st.columns(5)
     for i, (fname, dist) in enumerate(similar):
