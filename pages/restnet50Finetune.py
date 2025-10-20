@@ -38,7 +38,7 @@ def extract_feature(img_file):
     img = img.resize((224,224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
+    x = preprocess_input(x.copy())
 
     features = restnet.predict(x, verbose=0)
     features = features / np.linalg.norm(features, axis=1, keepdims=True)

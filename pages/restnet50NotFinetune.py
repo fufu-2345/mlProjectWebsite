@@ -26,7 +26,7 @@ class RestNet50:
         norm_feat = feat[0]/LA.norm(feat[0])
         return norm_feat
 
-h5f = h5py.File("./vectorData/RestNet50Vector.h5", 'r')
+h5f = h5py.File("./vectorData/Restnet50Vector.h5", 'r')
 feats = h5f['dataset_1'][:]
 imgNames = h5f['dataset_2'][:]
 h5f.close()
