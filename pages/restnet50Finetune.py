@@ -41,18 +41,27 @@ def extract_feature(img_file):
     x = preprocess_input(x.copy())
     
     st.write(f"Input shape: {x.shape}")
+    st.write(CNN.summary())
 
     features = restnet.predict(x, verbose=0)
+    st.write("1")
     features = features / np.linalg.norm(features, axis=1, keepdims=True)
+    st.write("2")
     features = stdScaler.transform(features)
+    st.write("3")
     features = CNN.predict(features, verbose=0)
+    st.write("4")
     features = mmScaler.transform(features)
+    st.write("5")
     return features.flatten()
 
 def find_similar_images(img_file, top_k=10):
     query_vec = extract_feature(img_file)
+    st.write("6")
     idxs, dists = ann_index.get_nns_by_vector(query_vec, top_k, include_distances=True)
+    st.write("7")
     results = [(filenames[i], d) for i, d in zip(idxs, dists)]
+    st.write("8")
     return results
 
 st.title("Restnet50 with Finetune")
