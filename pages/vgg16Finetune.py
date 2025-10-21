@@ -33,12 +33,11 @@ stdScaler = joblib.load('scaler/vgg16/stdScaler.pkl')
 mmScaler = joblib.load('scaler/vgg16/minMaxScaler.pkl')
 
 def extract_feature(img_file):
-    img_file.seek(0) 
     img = Image.open(img_file).convert("RGB")
     img = img.resize((224,224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x.copy())
+    x = preprocess_input(x)
 
     features = vgg.predict(x, verbose=0)
     features = features / np.linalg.norm(features, axis=1, keepdims=True)
