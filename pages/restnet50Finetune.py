@@ -41,7 +41,9 @@ def extract_feature(img_file):
     x = preprocess_input(x.copy())
     
     st.write(f"Input shape: {x.shape}")
-    st.write(CNN.summary())
+    st.write(restnet.input_shape)
+    st.write(restnet.summary())
+    st.write("0")
 
     features = restnet.predict(x, verbose=0)
     st.write("1")
