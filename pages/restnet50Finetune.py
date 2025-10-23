@@ -25,7 +25,7 @@ modelPath = Path(__file__).parent.parent/"models"
 pathh = Path(__file__).parent.parent/"train+vali/"
 
 CNN = load_model(modelPath/"cnnRestnet50Finetune.h5")
-restnet = load_model(modelPath/"restnet50Finetune.h5")
+restnet = load_model(modelPath/"restnet50NotFinetuneModel.h5")
 ann_index.load("models/annoyRestnet50.ann")
 
 import joblib

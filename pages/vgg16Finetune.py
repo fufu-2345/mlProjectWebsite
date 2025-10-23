@@ -25,7 +25,7 @@ modelPath = Path(__file__).parent.parent/"models"
 pathh = Path(__file__).parent.parent/"train+vali/"
 
 CNN = load_model(modelPath/"cnnVGG16Finetune.h5")
-vgg = load_model(modelPath/"vgg16Finetune.h5")
+vgg = load_model(modelPath/"vgg16NotFinetuneModel.h5")
 ann_index.load("models/annoyVGG16.ann")
 
 import joblib
