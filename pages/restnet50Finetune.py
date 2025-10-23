@@ -39,31 +39,17 @@ def extract_feature(img_file):
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x.copy())
-    
-    st.write(f"Input shape: {x.shape}")
-    st.write(restnet.input_shape)
-    st.write(restnet.summary())
-    st.write("0")
-
     features = restnet.predict(x, verbose=0)
-    st.write("1")
     features = features / np.linalg.norm(features, axis=1, keepdims=True)
-    st.write("2")
     features = stdScaler.transform(features)
-    st.write("3")
     features = CNN.predict(features, verbose=0)
-    st.write("4")
     features = mmScaler.transform(features)
-    st.write("5")
     return features.flatten()
 
 def find_similar_images(img_file, top_k=10):
     query_vec = extract_feature(img_file)
-    st.write("6")
     idxs, dists = ann_index.get_nns_by_vector(query_vec, top_k, include_distances=True)
-    st.write("7")
     results = [(filenames[i], d) for i, d in zip(idxs, dists)]
-    st.write("8")
     return results
 
 st.title("Restnet50 with Finetune")
@@ -89,6 +75,7 @@ if uploaded_file is not None:
                         <img src="data:image/jpeg;base64,{img_base64}" 
                              style="width:150px; height:100px; object-fit:cover; border-radius:10px;">
                         <p style="font-size:13px; color:gray;">Similar no. {i+1}</p>
+                        <p style="font-size:13px; color:gray;">path: {fname}</p>
                     </div>
                     """,
                     unsafe_allow_html=True
