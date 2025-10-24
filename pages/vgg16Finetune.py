@@ -75,8 +75,8 @@ if uploaded_file is not None:
                         <img src="data:image/jpeg;base64,{img_base64}" 
                              style="width:150px; height:100px; object-fit:cover; border-radius:10px;">
                         <p style="font-size:13px; color:gray;">Similar no. {i+1}</p>
-                        <p style="font-size:13px; color:gray;">path: {fname}</p>
                     </div>
                     """,
                     unsafe_allow_html=True
                 )
+# <p style="font-size:13px; color:gray;">path: {fname}</p>
