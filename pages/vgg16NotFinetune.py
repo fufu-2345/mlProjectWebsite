@@ -4,6 +4,7 @@ import numpy as np
 from numpy import linalg as LA
 import h5py
 from scipy import spatial
+import time
 import os
 import base64
 
@@ -40,7 +41,10 @@ uploaded_file = st.file_uploader("",type=None, label_visibility="collapsed")
 if uploaded_file is not None:
     queryImg = Image.open(uploaded_file)
     st.image(queryImg, caption="Your picture", use_container_width=True)
+    startTime = time.time()
     X = model.extract_feat(uploaded_file)
+    endTime = time.time()
+    st.write("Time used: ", endTime - startTime, "seconds")
     scores = []
     for i in range(feats.shape[0]):
         score = 1 - spatial.distance.cosine(X, feats[i])

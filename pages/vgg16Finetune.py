@@ -5,9 +5,9 @@ import pandas as pd
 from numpy import linalg as LA
 import h5py
 from scipy import spatial
+import time
 import os
 import base64
-import pickle
 from annoy import AnnoyIndex
 from pathlib import Path
 
@@ -59,7 +59,10 @@ uploaded_file = st.file_uploader("",type=None, label_visibility="collapsed")
 if uploaded_file is not None:
     query_img = Image.open(uploaded_file)
     st.image(query_img, caption="Your picture", use_container_width=True)
+    startTime = time.time()
     similar = find_similar_images(uploaded_file, top_k=10)
+    endTime = time.time()
+    st.write("Time used: ", endTime - startTime, "seconds")
     st.subheader("Top 10 similar images")
     cols = st.columns(5)
     for i, (fname, dist) in enumerate(similar):
